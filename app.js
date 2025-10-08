@@ -8,7 +8,7 @@ let bookIdCounter = 1; //ID counter for unique book ID
 //Book object constructor for creating book objects
 function createBook(title, author, year) {
     return {
-        id: bookIdCounter++,
+        id: bookIdCounter++, //give unique id each time we create a new book
         title: title,
         author: author,
         year: parseInt(year), //converts a string to int
@@ -90,7 +90,6 @@ function updateBook(searchTitle, newData) {
     if (newData.title) book.title = newData.title;
     if (newData.author) book.author = newData.author;
     if (newData.year) book.year = parseInt(newData.year); //convert string to int
-    if (newData.isbn) book.isbn = newData.isbn;
     
     console.log(`Updated book: ${book.title}`);
     return true;
@@ -106,27 +105,32 @@ function deleteBook(bookId) {
         return false;
     }
     
-    const deleted = booksArray.splice(index, 1)[0]; //Get the removed OBJECT
+    const deleted = booksArray.splice(index, 1)[0]; //Get the removed OBJECT by using [0] because splice() returns an array.
     console.log(`Deleted: "${deleted.title}"`);
     return true;
 }
 
 // SEARCH with partial keywords
 function searchBooks(keyword) {
-    const lowerKeyword = keyword.toLowerCase();
+    const lowerKeyword = keyword.toLowerCase(); //converts to lowercase
+    //filter() goes through every book in the array and keeps only the ones that match your condition
+    //returns a new array with only the matching books
     return booksArray.filter(book => 
-        book.title.toLowerCase().includes(lowerKeyword) ||
+        book.title.toLowerCase().includes(lowerKeyword) || //get book title -> make lowercase -> check if it contains keyword
         book.author.toLowerCase().includes(lowerKeyword)
     );
 }
 
-// FILTER books (published after 2015)
+// FILTER books (published after 2015) FILTER RECENT
 function filterRecentBooks() {
-    return booksArray.filter(book => book.year > 2015);
+    return booksArray.filter(book => book.year > 2015); //goes through every book in the array and keeps only the ones from 2015 and up.
 }
 
 // SORT by year (numeric)
+//(ascending = true) is a default parameter
+//If you call sortByYear() with no argument → ascending is true, otherwise it is false
 function sortByYear(ascending = true) {
+    //... spread operator, spreads out the array items and creates a copy of the array because sort() modifies the original array
     return [...booksArray].sort((a, b) => 
         ascending ? a.year - b.year : b.year - a.year
     );
@@ -271,7 +275,7 @@ function renderCardView(books) {
         const cardClass = !book.isAvailable ? 'book-card unavailable' : 'book-card';
         html += `
             <div class="${cardClass}">
-                <h4>${book.title}</h4>
+                <h3>${book.title}</h3>
                 <p><strong>Author:</strong> ${book.author}</p>
                 <p><strong>Year:</strong> ${book.year}</p>
                 <p><strong>Status:</strong> ${book.isAvailable ? 'Available' : 'Borrowed'}</p>
@@ -344,4 +348,23 @@ function resetDisplay() {
     currentSort = { field: null, ascending: true };
     renderBooks(booksArray);
     console.log('Display reset');
+}
+
+//Test Borrower Object
+//==========================================================
+
+// Create a test borrower
+const testBorrower = createBorrower("John Doe", "B001");
+
+// Test borrowing
+console.log("\n=== Testing Borrower Methods ===");
+if (booksArray.length > 0) {
+    console.log(testBorrower.borrow(booksArray[0]));
+    console.log(testBorrower.listBorrowedBooks());
+    
+    // Try to borrow same book again
+    console.log(testBorrower.borrow(booksArray[0]));
+    
+    // Return the book
+    console.log(testBorrower.returnBook(booksArray[0].title));
 }

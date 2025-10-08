@@ -62,7 +62,7 @@
         border-radius: 4px;
         cursor: pointer;
         margin-left: 5px;
-        transition: background-color 0.2s, transform 0.1s;
+        transition: background-color 0.2s;
       }
       button:hover {
         background-color: #66bf73;
@@ -88,7 +88,7 @@
         border-spacing: 0;
         border-radius: 5px;
         overflow: hidden;
-        border: 1px solid #89929b;
+        border: 1px solid #ddd;
       }
       th,
       td {
@@ -106,14 +106,9 @@
       .book-card {
         border: 1px solid #ddd;
         padding: 15px;
-        margin: 10px 0;
+        margin: 20px 0;
         border-radius: 4px;
-        background-color: #fff;
-      }
-
-      .book-card h4 {
-        margin-top: 0;
-        color: #333;
+        background-color: #21262d;
       }
 
       /* Highlight unavailable books in red */
@@ -122,11 +117,13 @@
       }
 
       .delete-btn {
+        margin-top: 10px;
         background-color: #f44336;
+        transition: background-color 0.2s;
       }
 
       .delete-btn:hover {
-        background-color: #da190b;
+        background-color: #c01b0f;
       }
     </style>
   </head>
@@ -177,7 +174,7 @@
 
       <!-- Action Buttons -->
       <div id="controls">
-        <button onclick="filterAndDisplay()">Filter Recent (2015 up)</button>
+        <button onclick="filterAndDisplay()">Filter Recent (after 2015)</button>
         <button onclick="sortAndDisplay('year')">Sort by Year</button>
         <button onclick="sortAndDisplay('title')">Sort by Title</button>
         <button onclick="toggleView()">Toggle View</button>
