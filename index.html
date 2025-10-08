@@ -10,7 +10,9 @@
         padding: 0;
         color: #ecf2f8;
       }
-      body, input, td{
+      body,
+      input,
+      td {
         background-color: #0d1117;
       }
       .container {
@@ -105,7 +107,7 @@
       /* Grid for cards: 3 per row, wraps to next line */
       #list {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
         align-items: start;
         margin-top: 10px;
@@ -149,10 +151,14 @@
 
       /* Responsive breakpoints */
       @media (max-width: 900px) {
-        #list { grid-template-columns: repeat(2, 1fr); }
+        #list {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
       @media (max-width: 500px) {
-        #list { grid-template-columns: 1fr; }
+        #list {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* Highlight unavailable books in red */
