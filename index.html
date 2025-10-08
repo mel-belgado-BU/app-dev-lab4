@@ -84,7 +84,6 @@
       table {
         width: 100%;
         border-collapse: separate;
-        margin-top: 20px;
         border-spacing: 0;
         border-radius: 5px;
         overflow: hidden;
@@ -103,12 +102,57 @@
       }
 
       /* Card View */
+      /* Grid for cards: 3 per row, wraps to next line */
+      #list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        align-items: start;
+        margin-top: 10px;
+      }
+
       .book-card {
         border: 1px solid #ddd;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 4px;
+        padding: 12px;
+        border-radius: 6px;
         background-color: #21262d;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 110px;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+
+      /* Title: allow up to 2 lines then ellipsis, font scales down on narrow screens */
+      .book-card h3 {
+        margin: 0 0 8px 0;
+        font-size: clamp(14px, 1.6vw, 16px);
+        line-height: 1.1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .book-card p {
+        margin: 4px 0;
+        font-size: clamp(12px, 1.2vw, 13px);
+      }
+
+      .book-card .delete-btn {
+        align-self: flex-start;
+        margin-top: 8px;
+      }
+
+      /* Responsive breakpoints */
+      @media (max-width: 900px) {
+        #list { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 500px) {
+        #list { grid-template-columns: 1fr; }
       }
 
       /* Highlight unavailable books in red */
