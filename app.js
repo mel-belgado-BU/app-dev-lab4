@@ -245,14 +245,21 @@ function renderTableView(books) {
     
     books.forEach(book => {
         const rowClass = !book.isAvailable ? 'unavailable' : '';
+        const borrowOrReturnBtn = book.isAvailable
+            ? `<button class="borrow-btn" onclick="handleBorrow(${book.id})">Borrow</button>`
+            : `<button class="return-btn" onclick="handleReturn(${book.id})">Return</button>`;
+
         html += `
             <tr class="${rowClass}">
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.year}</td>
                 <td>${book.isAvailable ? 'Available' : 'Borrowed'}</td>
-                <td>
-                    <button class="delete-btn" onclick="handleDelete(${book.id})">Delete</button>
+                <td class="actions">
+                    <div class="action-buttons">
+                        ${borrowOrReturnBtn}
+                        <button class="delete-btn" onclick="handleDelete(${book.id})">Delete</button>
+                    </div>
                 </td>
             </tr>
         `;
@@ -279,7 +286,12 @@ function renderCardView(books) {
                 <p><strong>Author:</strong> ${book.author}</p>
                 <p><strong>Year:</strong> ${book.year}</p>
                 <p><strong>Status:</strong> ${book.isAvailable ? 'Available' : 'Borrowed'}</p>
-                <button class="delete-btn" onclick="handleDelete(${book.id})">Delete</button>
+                <div>
+                    ${book.isAvailable
+                        ? `<button class="borrow-btn" onclick="handleBorrow(${book.id})">Borrow</button>`
+                        : `<button class="return-btn" onclick="handleReturn(${book.id})">Return</button>`}
+                    <button class="delete-btn" onclick="handleDelete(${book.id})">Delete</button>
+                </div>
             </div>
         `;
     });
@@ -305,6 +317,22 @@ function handleDelete(bookId) {
         deleteBook(bookId);
         renderBooks(booksArray);
     }
+}
+
+// Handle borrow
+function handleBorrow(bookId) {
+    const book = booksArray.find(b => b.id === bookId);
+    const msg = testBorrower.borrow(book);
+    alert(msg);
+    renderBooks(booksArray);
+}
+
+// Handle return
+function handleReturn(bookId) {
+    const book = booksArray.find(b => b.id === bookId);
+    const msg = testBorrower.returnBook(book.title);
+    alert(msg);
+    renderBooks(booksArray);
 }
 
 // Filter and display

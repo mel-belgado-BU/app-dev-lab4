@@ -104,12 +104,12 @@
       }
 
       /* Card View */
-      /* Grid for cards: 3 per row, wraps to next line */
+      /* Grid for cards: 2 per row, wraps to next line */
       #list {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 16px;
-        align-items: start;
+        align-items: center;
         margin-top: 10px;
       }
 
@@ -161,9 +161,17 @@
         }
       }
 
-      /* Highlight unavailable books in red */
-      .unavailable {
-        background-color: #ffebee !important;
+      /* Highlight unavailable books */
+      .unavailable, tr.unavailable td {
+        background-color: #42141c !important;
+      }
+
+      .return-btn {
+        background-color: #7e466b;
+      }
+
+      .return-btn:hover {
+        background-color: #bf66bf;
       }
 
       .delete-btn {
@@ -175,6 +183,19 @@
       .delete-btn:hover {
         background-color: #c01b0f;
       }
+      .actions{
+        white-space: nowrap; /* prevent wrapping */
+      }
+      .actions button {
+        display: inline-block;
+        margin-right: 6px;
+        margin-top: 0;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+        vertical-align: middle;
+      }
+      
     </style>
   </head>
   <body>
