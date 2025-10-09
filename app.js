@@ -382,7 +382,7 @@ function resetDisplay() {
 //==========================================================
 
 // Create a test borrower
-const testBorrower = createBorrower("John Doe", "B001");
+const testBorrower = createBorrower("Sample Borrower", "B001");
 
 // Test borrowing
 console.log("\n=== Testing Borrower Methods ===");
